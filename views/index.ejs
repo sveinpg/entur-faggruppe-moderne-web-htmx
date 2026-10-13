@@ -5,7 +5,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <title>Neste avgang</title>
         <link rel="stylesheet" href="/static/index.css" />
-        <!-- Holdeplass 1: last htmx her. -->
+        <script src="/vendor/htmx/htmx.min.js" defer></script>
     </head>
     <body>
         <a class="skip-link" href="#main-content">Hopp til hovedinnhold</a>
@@ -35,7 +35,16 @@
                     </span>
                 </div>
 
-                <form action="/avganger" class="search" method="GET">
+                <form
+                    action="/avganger"
+                    class="search"
+                    hx-get="/avganger"
+                    hx-push-url="true"
+                    hx-swap="outerHTML"
+                    hx-target="#departure-board"
+                    hx-trigger="input changed delay:400ms from:#departure-search, submit"
+                    method="GET"
+                >
                     <label for="departure-search">Søk etter linje eller destinasjon</label>
                     <div class="search-row">
                         <input
