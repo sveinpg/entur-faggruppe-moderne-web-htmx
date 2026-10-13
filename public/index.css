@@ -213,6 +213,10 @@ main {
     letter-spacing: 0.15em;
 }
 
+.spinner.htmx-request {
+    display: inline;
+}
+
 .table-scroll {
     overflow-x: auto;
 }
