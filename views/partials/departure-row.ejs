@@ -7,6 +7,9 @@
             <form
                 action="/avganger/<%= departure.id %>/forsinkelse"
                 class="edit-delay"
+                hx-post="/avganger/<%= departure.id %>/forsinkelse"
+                hx-swap="outerHTML"
+                hx-target="closest tr"
                 method="POST"
             >
                 <div>
