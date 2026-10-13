@@ -86,6 +86,12 @@
                     action="/avganger/<%= departure.id %>/<%=
                         departure.cancelled ? 'sett-opp' : 'innstill'
                     %>"
+                    hx-confirm="Vil du endre status for denne avgangen?"
+                    hx-post="/avganger/<%= departure.id %>/<%=
+                        departure.cancelled ? 'sett-opp' : 'innstill'
+                    %>"
+                    hx-swap="outerHTML"
+                    hx-target="closest tr"
                     method="POST"
                 >
                     <button class="button-link" type="submit">
