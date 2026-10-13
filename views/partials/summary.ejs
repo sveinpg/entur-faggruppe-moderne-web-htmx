@@ -1,4 +1,9 @@
-<section aria-labelledby="summary-heading" class="summary" id="summary">
+<section
+    aria-labelledby="summary-heading"
+    class="summary"
+    id="summary"
+    <%- oob ? 'hx-swap-oob="outerHTML"' : '' %>
+>
     <h2 id="summary-heading">Situasjonen nå</h2>
     <dl>
         <div>
@@ -19,4 +24,3 @@
         </div>
     </dl>
 </section>
-

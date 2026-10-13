@@ -174,6 +174,24 @@ describe('Neste avgang', { concurrency: false }, () => {
         assert.doesNotMatch(html, /10 min forsinket/)
     })
 
+    it('updates the summary out of band after a change', async () => {
+        const response = await fetch(`${baseUrl}/avganger/r10-1/forsinkelse`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/x-www-form-urlencoded',
+                'HX-Request': 'true',
+            },
+            body: 'delay=15',
+        })
+        const html = await response.text()
+
+        assert.equal(response.status, 200)
+        assert.match(html, /id="summary"/)
+        assert.match(html, /hx-swap-oob="outerHTML"/)
+        assert.match(html, /<dd>4<\/dd>/)
+        assert.match(html, /<dd>5<\/dd>/)
+    })
+
     it('keeps status changes idempotent', async () => {
         const requestOptions = {
             method: 'POST',
