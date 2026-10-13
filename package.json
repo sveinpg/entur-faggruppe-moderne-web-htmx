@@ -1,0 +1,22 @@
+{
+    "name": "entur-faggruppe-moderne-web-htmx",
+    "version": "1.0.0",
+    "private": true,
+    "description": "Neste avgang — en workshop om HTML-svar og htmx",
+    "type": "module",
+    "scripts": {
+        "start": "node --watch server.js",
+        "serve": "node server.js",
+        "test": "node --test"
+    },
+    "engines": {
+        "node": ">=22"
+    },
+    "dependencies": {
+        "@entur/tokens": "^4.2.0",
+        "ejs": "^7.0.1",
+        "express": "^5.2.1",
+        "htmx-ext-sse": "^2.2.4",
+        "htmx.org": "^2.0.11"
+    }
+}

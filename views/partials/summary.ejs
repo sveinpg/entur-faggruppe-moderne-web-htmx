@@ -1,0 +1,22 @@
+<section aria-labelledby="summary-heading" class="summary" id="summary">
+    <h2 id="summary-heading">Situasjonen nå</h2>
+    <dl>
+        <div>
+            <dt>I rute</dt>
+            <dd><%= summary.onTime %></dd>
+        </div>
+        <div>
+            <dt>Forsinket</dt>
+            <dd><%= summary.delayed %></dd>
+        </div>
+        <div>
+            <dt>Innstilt</dt>
+            <dd><%= summary.cancelled %></dd>
+        </div>
+        <div>
+            <dt>Totalt</dt>
+            <dd><%= summary.total %></dd>
+        </div>
+    </dl>
+</section>
+

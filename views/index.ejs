@@ -1,0 +1,64 @@
+<!doctype html>
+<html lang="no" data-color-mode="light">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <title>Neste avgang</title>
+        <link rel="stylesheet" href="/static/index.css" />
+        <!-- Holdeplass 1: last htmx her. -->
+    </head>
+    <body>
+        <a class="skip-link" href="#main-content">Hopp til hovedinnhold</a>
+
+        <header class="page-header">
+            <div>
+                <p class="eyebrow">Trafikkstyring</p>
+                <h1>🚉 Neste avgang</h1>
+                <p>
+                    En avgangstavle laget på serveren. Endre trafikken her, og se hva
+                    nettleseren trenger for å holde følge.
+                </p>
+            </div>
+        </header>
+
+        <main id="main-content">
+            <%- include('partials/summary', { summary }) %>
+
+            <section aria-labelledby="departures-heading" class="board-section">
+                <div class="section-heading">
+                    <div>
+                        <p class="eyebrow">Oslo S</p>
+                        <h2 id="departures-heading">Avganger</h2>
+                    </div>
+                    <span class="connection-status" id="connection-status">
+                        Laget på serveren
+                    </span>
+                </div>
+
+                <form action="/avganger" class="search" method="GET">
+                    <label for="departure-search">Søk etter linje eller destinasjon</label>
+                    <div class="search-row">
+                        <input
+                            autocomplete="off"
+                            id="departure-search"
+                            name="q"
+                            type="search"
+                            value="<%= query %>"
+                        />
+                        <button type="submit">Søk</button>
+                        <span aria-hidden="true" class="spinner">●●●</span>
+                    </div>
+                </form>
+
+                <%- include('partials/departure-board', {
+                    departures,
+                    query,
+                    editId,
+                    error,
+                    formatTime,
+                    expectedAt,
+                }) %>
+            </section>
+        </main>
+    </body>
+</html>

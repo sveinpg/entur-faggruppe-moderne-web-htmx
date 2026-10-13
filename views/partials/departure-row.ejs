@@ -1,0 +1,81 @@
+<tr
+    class="departure <%= departure.cancelled ? 'is-cancelled' : '' %>"
+    id="<%= departure.id %>"
+>
+    <% if (editId === departure.id) { %>
+        <td colspan="6">
+            <form
+                action="/avganger/<%= departure.id %>/forsinkelse"
+                class="edit-delay"
+                method="POST"
+            >
+                <div>
+                    <strong><%= departure.line %> til <%= departure.destination %></strong>
+                    <p>Ordinær avgang <%= formatTime(departure.scheduledAt) %></p>
+                </div>
+                <div class="field">
+                    <label for="delay-<%= departure.id %>">Forsinkelse i minutter</label>
+                    <input
+                        aria-describedby="<%= error ? `delay-error-${departure.id}` : '' %>"
+                        id="delay-<%= departure.id %>"
+                        inputmode="numeric"
+                        min="0"
+                        name="delay"
+                        required
+                        type="number"
+                        value="<%= typeof delayValue === 'undefined' ? departure.delay : delayValue %>"
+                    />
+                    <% if (error) { %>
+                        <p class="field-error" id="delay-error-<%= departure.id %>" role="status">
+                            <%= error %>
+                        </p>
+                    <% } %>
+                </div>
+                <div class="actions">
+                    <button type="submit">Lagre</button>
+                    <a href="/avganger/<%= departure.id %>">Avbryt</a>
+                </div>
+            </form>
+        </td>
+    <% } else { %>
+        <td>
+            <time datetime="<%= departure.scheduledAt.toISOString() %>">
+                <%= formatTime(departure.scheduledAt) %>
+            </time>
+            <% if (departure.delay > 0 && !departure.cancelled) { %>
+                <span class="expected-time">
+                    Ny tid <%= formatTime(expectedAt(departure)) %>
+                </span>
+            <% } %>
+        </td>
+        <td>
+            <span class="line-tag line-tag--<%= departure.mode %>">
+                <%= departure.line %>
+            </span>
+        </td>
+        <td><%= departure.destination %></td>
+        <td><%= departure.platform %></td>
+        <td>
+            <% if (departure.cancelled) { %>
+                <span class="status status--cancelled">Innstilt</span>
+            <% } else if (departure.delay > 0) { %>
+                <span class="status status--delayed"><%= departure.delay %> min forsinket</span>
+            <% } else { %>
+                <span class="status status--on-time">I rute</span>
+            <% } %>
+        </td>
+        <td>
+            <div class="actions">
+                <a href="/avganger/<%= departure.id %>/rediger">Endre</a>
+                <form
+                    action="/avganger/<%= departure.id %>/<%= departure.cancelled ? 'sett-opp' : 'innstill' %>"
+                    method="POST"
+                >
+                    <button class="button-link" type="submit">
+                        <%= departure.cancelled ? 'Sett opp igjen' : 'Innstill' %>
+                    </button>
+                </form>
+            </div>
+        </td>
+    <% } %>
+</tr>

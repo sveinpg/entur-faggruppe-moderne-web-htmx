@@ -1,0 +1,12 @@
+<!-- Holdeplass 8: koble denne delen av siden til SSE. -->
+<div id="live-departures">
+    <%- include('departure-board', {
+        departures,
+        query,
+        editId,
+        error,
+        delayValue: typeof delayValue === 'undefined' ? undefined : delayValue,
+        formatTime,
+        expectedAt,
+    }) %>
+</div>

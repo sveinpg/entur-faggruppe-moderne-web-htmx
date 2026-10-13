@@ -1,0 +1,10 @@
+<% departures.forEach(departure => { %>
+    <%- include('departure-row', {
+        departure,
+        editId,
+        error,
+        delayValue: typeof delayValue === 'undefined' ? undefined : delayValue,
+        formatTime,
+        expectedAt,
+    }) %>
+<% }) %>

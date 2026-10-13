@@ -1,0 +1,41 @@
+<div id="departure-board">
+    <p aria-live="polite" class="result-status" id="result-status">
+        <% if (query) { %>
+            <%= departures.length %> treff på «<%= query %>»
+        <% } else { %>
+            Viser <%= departures.length %> avganger
+        <% } %>
+    </p>
+
+    <div class="table-scroll" tabindex="0" role="region" aria-label="Avgangstavle">
+        <table>
+            <caption class="visually-hidden">
+                Kommende avganger fra Oslo S, sortert etter avgangstid
+            </caption>
+            <thead>
+                <tr>
+                    <th scope="col">Tid</th>
+                    <th scope="col">Linje</th>
+                    <th scope="col">Destinasjon</th>
+                    <th scope="col">Spor</th>
+                    <th scope="col">Status</th>
+                    <th scope="col">Handling</th>
+                </tr>
+            </thead>
+            <tbody id="departure-rows">
+                <%- include('departure-rows', {
+                    departures,
+                    editId,
+                    error,
+                    delayValue: typeof delayValue === 'undefined' ? undefined : delayValue,
+                    formatTime,
+                    expectedAt,
+                }) %>
+            </tbody>
+        </table>
+    </div>
+
+    <% if (departures.length === 0) { %>
+        <p class="empty-state">Ingen avganger matcher søket.</p>
+    <% } %>
+</div>
