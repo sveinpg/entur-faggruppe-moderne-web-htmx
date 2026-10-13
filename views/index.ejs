@@ -18,6 +18,7 @@
         <title>Neste avgang</title>
         <link rel="stylesheet" href="/static/index.css" />
         <script src="/vendor/htmx/htmx.min.js" defer></script>
+        <script src="/vendor/htmx-ext-sse/sse.js" defer></script>
     </head>
     <body>
         <a class="skip-link" href="#main-content">Hopp til hovedinnhold</a>
@@ -43,7 +44,7 @@
                         <h2 id="departures-heading">Avganger</h2>
                     </div>
                     <span class="connection-status" id="connection-status">
-                        Laget på serveren
+                        Liveoppdatering slått på
                     </span>
                 </div>
 
@@ -55,7 +56,7 @@
                     hx-push-url="true"
                     hx-swap="outerHTML"
                     hx-sync="this:replace"
-                    hx-target="#departure-board"
+                    hx-target="#live-departures"
                     hx-trigger="input changed delay:400ms from:#departure-search, submit"
                     method="GET"
                 >
@@ -73,7 +74,7 @@
                     </div>
                 </form>
 
-                <%- include('partials/departure-board', {
+                <%- include('partials/live-departures', {
                     departures,
                     query,
                     editId,

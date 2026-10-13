@@ -28,6 +28,22 @@ describe('Neste avgang', { concurrency: false }, () => {
         assert.match(html, /Lillehammer/)
     })
 
+    it('renders the completed htmx wiring', async () => {
+        const pageResponse = await fetch(baseUrl)
+        const page = await pageResponse.text()
+        const editResponse = await fetch(`${baseUrl}/avganger/r10-1/rediger`, {
+            headers: { 'HX-Request': 'true' },
+        })
+        const editRow = await editResponse.text()
+
+        assert.match(page, /src="\/vendor\/htmx\/htmx\.min\.js"/)
+        assert.match(page, /hx-target="#live-departures"/)
+        assert.match(page, /hx-sync="this:replace"/)
+        assert.match(page, /sse-connect="\/hendelser\?q="/)
+        assert.match(editRow, /hx-post="\/avganger\/r10-1\/forsinkelse"/)
+        assert.match(editRow, /hx-get="\/avganger\/r10-1"/)
+    })
+
     it('returns only the departure board for an htmx search', async () => {
         const response = await fetch(`${baseUrl}/avganger?q=Bergen`, {
             headers: { 'HX-Request': 'true' },
@@ -69,6 +85,7 @@ describe('Neste avgang', { concurrency: false }, () => {
 
         assert.equal(response.status, 200)
         assert.match(html, /id="live-departures"/)
+        assert.match(html, /sse-connect="\/hendelser\?q=Bergen"/)
         assert.match(html, /1 treff på «Bergen»/)
     })
 

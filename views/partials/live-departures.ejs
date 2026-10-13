@@ -1,5 +1,9 @@
-<!-- Holdeplass 8: koble denne delen av siden til SSE. -->
-<div id="live-departures">
+<div
+    id="live-departures"
+    hx-ext="sse"
+    sse-connect="/hendelser?q=<%= encodeURIComponent(query) %>"
+    sse-swap="avganger"
+>
     <%- include('departure-board', {
         departures,
         query,
